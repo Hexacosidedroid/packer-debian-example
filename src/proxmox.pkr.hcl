@@ -19,9 +19,9 @@ source "proxmox-iso" "proxmox-debian-11" {
 
   ssh_username           = "${var.ssh_user}"
   ssh_password           = "${var.ssh_pass}"
-  ssh_timeout            = "20m"
+  ssh_timeout            = "5m"
   ssh_pty                = true
-  ssh_handshake_attempts = 20
+  ssh_handshake_attempts = 10
 
   http_directory       = "http"
   boot_command         = [
@@ -30,7 +30,7 @@ source "proxmox-iso" "proxmox-debian-11" {
           "netcfg/disable_dhcp=true ",
           "netcfg/disable_autoconfig=true ",
           "netcfg/use_autoconfig=false ",
-          "netcfg/get_ipaddress=45.12.65.135 ",
+          "netcfg/get_ipaddress=45.12.65.136 ",
           "netcfg/get_netmask=255.255.240.0 ",
           "netcfg/get_gateway=45.12.65.129 ",
           "netcfg/get_nameservers=188.93.16.19 8.8.8.8 ",
@@ -72,9 +72,12 @@ source "proxmox-iso" "proxmox-debian-11" {
 build {
   sources = ["source.proxmox-iso.proxmox-debian-11"]
   provisioner "shell" {
+#    execute_command = "echo 'packer' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'"
     inline = [
-      "sudo apt-get update",
-      "sudo apt-get install -y nginx"
+      "whoami",
+      "apt-get update",
+      "apt-get install sudo -y",
+      "apt-get install nginx -y"
     ]
   }
 }
