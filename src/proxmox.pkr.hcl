@@ -75,11 +75,8 @@ build {
 #    execute_command = "echo 'packer' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'"
     inline = [
       "whoami",
-      "echo 'Gfrth{ezrth' | sudo -S su",
-      "adduser packer",
-      "exit",
-      "echo 'Gfrth{ezrth' | sudo -S apt-get update",
-      "echo 'Gfrth{ezrth' | sudo -S apt-get install nginx -y"
+      "sudo apt-get update",
+      "sudo apt-get install nginx -y"
     ]
   }
 }
