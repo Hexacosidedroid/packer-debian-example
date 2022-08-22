@@ -76,7 +76,11 @@ build {
     inline = [
       "whoami",
       "sudo apt-get update",
-      "sudo apt-get install nginx -y"
+      "sudo apt-get install nginx -y",
+      "sudo systemctl enable nginx",
+      "sudo apt-get install corosync pacemaker pcs -y",
+      "sudo systemctl enable corosync pacemaker pcsd",
+      "sudo openssl req -newkey rsa:4096 -x509 -sha256 -days 3650 -nodes -out /etc/ssl/nginx.crt -keyout /etc/ssl/nginx.key -subj '/C=RU/ST=Denial/L=Rostov-on-Don/O=CIB/CN=localhost'"
     ]
   }
 }
