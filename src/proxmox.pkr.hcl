@@ -75,9 +75,8 @@ build {
 #    execute_command = "echo 'packer' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'"
     inline = [
       "whoami",
-      "apt-get update",
-      "apt-get install sudo -y",
-      "apt-get install nginx -y"
+      "sudo apt-get update",
+      "sudo apt-get install nginx -y"
     ]
   }
 }
