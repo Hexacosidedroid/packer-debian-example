@@ -76,6 +76,7 @@ build {
     inline = [
       "whoami",
       "sudo apt-get update",
+      "sudo apt-get remove --purge apache2 apache2-utils -y",
       "sudo apt-get install nginx -y",
       "sudo systemctl enable nginx",
       "sudo apt-get install corosync pacemaker pcs -y",
