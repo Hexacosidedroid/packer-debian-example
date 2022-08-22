@@ -10,7 +10,7 @@ packer {
 source "proxmox-iso" "proxmox-debian-11" {
   proxmox_url = "https://45.12.65.130:8006/api2/json"
   vm_name     = "destory-debian"
-  iso_file    = "local:iso/debian-11.4.0-amd64-DVD-1.iso"
+  iso_file    = "local:iso/debian-11.4.0-amd64-netinst.iso"
   iso_checksum = "32c7ce39dbc977ce655869c7bd744db39fb84dff1e2493ad56ce05c3540dfc40"
   username         = "${var.pm_user}"
   password         = "${var.pm_pass}"
@@ -19,7 +19,7 @@ source "proxmox-iso" "proxmox-debian-11" {
 
   ssh_username           = "${var.ssh_user}"
   ssh_password           = "${var.ssh_pass}"
-  ssh_timeout            = "5m"
+  ssh_timeout            = "10m"
   ssh_pty                = true
   ssh_handshake_attempts = 10
 
@@ -43,7 +43,7 @@ source "proxmox-iso" "proxmox-debian-11" {
 
   insecure_skip_tls_verify = true
 
-  template_name        = "debian-11-template"
+  template_name        = "debian-11-nginx-template"
   template_description = "packer generated debian-11.4.0-amd64"
   unmount_iso          = true
   
@@ -75,8 +75,8 @@ build {
 #    execute_command = "echo 'packer' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'"
     inline = [
       "whoami",
-      "echo 'Gfrth{ezrth' | sudo -S apt-get update",
-      "echo 'Gfrth{ezrth' | sudo -S apt-get install nginx -y"
+      "sudo apt-get update",
+      "sudo apt-get install nginx -y"
     ]
   }
 }
